@@ -1,0 +1,86 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.versions = [
+            androidGradle   : "3.6.3",
+            androidXCore    : "1.2.0",
+            apollo          : "2.0.3",
+            appcompat       : "1.1.0",
+            constraintLayout: "1.1.3",
+            coroutines      : "1.3.6",
+            dagger          : "2.27",
+            detekt          : "1.9.0",
+            junit5          : "5.6.2",
+            kotlin          : "1.3.72",
+            lifecycle       : "2.2.0",
+            okHttp          : "4.6.0",
+            recyclerView    : "1.1.0"
+    ]
+
+    ext.api = [
+            dagger: [
+                    "com.google.dagger:dagger-android:${versions.dagger}",
+                    "com.google.dagger:dagger-android-support:${versions.dagger}"
+            ]
+    ]
+
+    ext.deps = [
+            androidX  : [
+                    "androidx.appcompat:appcompat:${versions.appcompat}",
+                    "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}",
+                    "androidx.core:core-ktx:${versions.androidXCore}",
+                    "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
+                    "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}",
+                    "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+            ],
+            apollo    : "com.apollographql.apollo:apollo-runtime:${versions.apollo}",
+            coroutines: [
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+            ],
+            junit5    : "org.junit.jupiter:junit-jupiter-api:${versions.junit5}",
+            kotlin    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+            okHttp    : "com.squareup.okhttp3:okhttp:${versions.okHttp}"
+    ]
+
+    ext.runtime = [
+            "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
+    ]
+
+    ext.procs = [
+            dagger: "com.google.dagger:dagger-android-processor:${versions.dagger}"
+    ]
+
+    ext.classpaths = [
+            androidGradle: "com.android.tools.build:gradle:${versions.androidGradle}",
+            apollo       : "com.apollographql.apollo:apollo-gradle-plugin:${versions.apollo}",
+            detekt       : "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}",
+            kotlin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+    ]
+
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath classpaths.androidGradle
+        classpath classpaths.apollo
+        classpath classpaths.detekt
+        classpath classpaths.kotlin
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+        google()
+    }
+
+    apply from: "$rootDir/detekt.gradle"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
