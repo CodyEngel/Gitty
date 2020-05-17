@@ -428,7 +428,7 @@ potential-bugs:
   LateinitUsage:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt']
-    excludeAnnotatedProperties: []
+    excludeAnnotatedProperties: ['Inject']
     ignoreOnClassesPattern: ''
   MapGetWithNotNullAssertionOperator:
     active: true
@@ -529,7 +529,7 @@ style:
   NestedClassesVisibility:
     active: true
   NewLineAtEndOfFile:
-    active: true
+    active: false
   NoTabs:
     active: true
   OptionalAbstractKeyword:

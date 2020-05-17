@@ -19,8 +19,8 @@ buildscript {
 
     ext.api = [
             dagger: [
-                    "com.google.dagger:dagger-android:${versions.dagger}",
-                    "com.google.dagger:dagger-android-support:${versions.dagger}"
+                    "com.google.dagger:dagger:${versions.dagger}",
+                    "com.google.dagger:dagger-android:${versions.dagger}"
             ]
     ]
 
@@ -48,7 +48,10 @@ buildscript {
     ]
 
     ext.procs = [
-            dagger: "com.google.dagger:dagger-android-processor:${versions.dagger}"
+            dagger: [
+                    "com.google.dagger:dagger-compiler:${versions.dagger}",
+                    "com.google.dagger:dagger-android-processor:${versions.dagger}"
+            ]
     ]
 
     ext.classpaths = [
