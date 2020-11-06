@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import dev.engel.gitty.core.AppConstants.GITHUB_CLIENT_ID
 import dev.engel.gitty.core.AppConstants.GITHUB_CLIENT_SECRET
+import dev.engel.gitty.core.Skribe
 import dev.engel.gitty.di.AutoInject
 import dev.engel.gitty.repository.Auth
 import dev.engel.gitty.repository.AuthCreateQuery
@@ -27,17 +28,25 @@ class AuthenticationActivity : AppCompatActivity(), AutoInject {
     @Inject
     lateinit var authService: AuthorizationService
 
+    @Inject
+    lateinit var skribe: Skribe
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        skribe tag javaClass.simpleName
         MainScope().launch {
             when (authRepository.retrieve()) {
                 is Auth.LoggedOut -> doAuth()
-                is Auth.LoggedIn -> startActivity(MainActivity.createIntent(this@AuthenticationActivity))
+                is Auth.LoggedIn -> {
+                    skribe trace "User already logged in, heading to the MainActivity."
+                    startActivity(MainActivity.createIntent(this@AuthenticationActivity))
+                }
             }
         }
     }
 
     private fun doAuth() {
+        skribe trace "User has not authenticated, redirecting to OAuth flow."
         val authRequest = AuthorizationRequest.Builder(
             serviceConfiguration,
             GITHUB_CLIENT_ID,
@@ -72,18 +81,19 @@ class AuthenticationActivity : AppCompatActivity(), AutoInject {
                     clientAuth
                 ) { response, exception ->
                     MainScope().launch {
+                        skribe trace "Authentication was successful."
                         val auth = authRepository.create(AuthCreateQuery(response, exception))
                         if (auth is Auth.LoggedIn) {
+                            skribe trace "User is logged in."
                             startActivity(MainActivity.createIntent(this@AuthenticationActivity))
+                        } else {
+                            skribe warn "User is logged out after authentication was successful."
                         }
                     }
                 }
             } else if (ex != null) {
-                // authorization failed
-                ex.code
-                ex.error
-                ex.errorDescription
-                ex.errorUri
+                skribe error "An error occurred with the following description: ${ex.errorDescription}"
+                skribe error "More details about this error can be found here: ${ex.errorUri}"
             }
         } else {
             Log.d("Cody", "uh oh")
