@@ -1,0 +1,21 @@
+query ViewerCard {
+  viewer {
+    id
+    login
+    name
+    company
+    avatarUrl(size: 512)
+    followers {
+      totalCount
+    }
+    issues {
+      totalCount
+    }
+    issueComments {
+      totalCount
+    }
+    repositories {
+      totalCount
+    }
+  }
+}
