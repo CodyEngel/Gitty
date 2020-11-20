@@ -20,6 +20,7 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         AuthModule::class,
+        FragmentModule::class,
         NetworkModule::class
     ]
 )

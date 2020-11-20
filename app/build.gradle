@@ -45,6 +45,7 @@ dependencies {
     implementation deps.androidX
     implementation deps.apollo
     implementation deps.appAuth
+    implementation deps.coil
     implementation deps.coroutines
     implementation deps.kotlin
     implementation deps.okHttp

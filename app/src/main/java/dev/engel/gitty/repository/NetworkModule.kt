@@ -1,6 +1,5 @@
 package dev.engel.gitty.repository
 
-import android.util.Log
 import com.apollographql.apollo.ApolloClient
 import dagger.Module
 import dagger.Provides

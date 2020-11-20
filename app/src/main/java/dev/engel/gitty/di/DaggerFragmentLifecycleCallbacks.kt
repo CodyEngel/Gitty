@@ -13,7 +13,9 @@ class DaggerFragmentLifecycleCallbacks(
     private val dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 ) : FragmentManager.FragmentLifecycleCallbacks() {
     override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
-        dispatchingAndroidInjector.inject(f)
+        if (f is AutoInject) {
+            dispatchingAndroidInjector.inject(f)
+        }
         super.onFragmentAttached(fm, f, context)
     }
 }

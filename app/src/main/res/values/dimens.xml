@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Container Level Dimensions -->
+    <dimen name="container_padding">16dp</dimen>
+
+    <!-- Widget Level Dimensions -->
+    <dimen name="widget_margin">16dp</dimen>
+    <dimen name="widget_margin_small">8dp</dimen>
+</resources>

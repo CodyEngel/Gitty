@@ -1,21 +1,32 @@
 query ViewerCard {
-  viewer {
-    id
-    login
-    name
-    company
-    avatarUrl(size: 512)
-    followers {
-      totalCount
+    viewer {
+        id
+        login
+        name
+        company
+        avatarUrl(size: 512)
+        followers {
+            totalCount
+        }
+        issues {
+            totalCount
+        }
+        issueComments {
+            totalCount
+        }
+        organizations(first: 15) {
+            nodes {
+                name
+                avatarUrl(size: 256)
+            }
+            totalCount
+        }
+        repositories(first: 25, orderBy: { field: CREATED_AT, direction: DESC }) {
+            nodes {
+                name
+                description
+            }
+            totalCount
+        }
     }
-    issues {
-      totalCount
-    }
-    issueComments {
-      totalCount
-    }
-    repositories {
-      totalCount
-    }
-  }
 }

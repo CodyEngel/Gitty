@@ -3,18 +3,20 @@
 buildscript {
     ext.versions = [
             androidGradle   : '4.1.0',
-            androidXCore    : "1.2.0",
+            androidXCore    : '1.3.2',
             apollo          : "2.4.1",
             appAuth         : "0.7.1",
-            appcompat       : "1.1.0",
-            constraintLayout: "1.1.3",
+            appcompat       : '1.2.0',
+            coil            : '1.0.0',
+            constraintLayout: '2.0.4',
             coroutines      : "1.3.6",
-            dagger          : "2.27",
+            dagger          : '2.29.1',
             detekt          : "1.9.0",
-            junit5          : "5.6.2",
-            kotlin          : "1.3.72",
+            junit5          : '5.7.0',
+            kotlin          : '1.4.20',
             lifecycle       : "2.2.0",
-            okHttp          : "4.6.0",
+            navigation      : '2.3.1',
+            okHttp          : '4.9.0',
             recyclerView    : "1.1.0"
     ]
 
@@ -32,6 +34,8 @@ buildscript {
                     "androidx.core:core-ktx:${versions.androidXCore}",
                     "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
                     "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}",
+                    "androidx.navigation:navigation-fragment-ktx:${versions.navigation}",
+                    "androidx.navigation:navigation-ui-ktx:${versions.navigation}",
                     "androidx.recyclerview:recyclerview:${versions.recyclerView}"
             ],
             apollo    : [
@@ -39,6 +43,7 @@ buildscript {
                     "com.apollographql.apollo:apollo-coroutines-support:${versions.apollo}"
             ],
             appAuth   : "net.openid:appauth:${versions.appAuth}",
+            coil      : "io.coil-kt:coil:${versions.coil}",
             coroutines: [
                     "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}",
                     "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
