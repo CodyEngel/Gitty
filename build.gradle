@@ -2,7 +2,7 @@
 
 buildscript {
     ext.versions = [
-            androidGradle   : '4.1.0',
+            androidGradle   : '4.1.1',
             androidXCore    : '1.3.2',
             apollo          : "2.4.1",
             appAuth         : "0.7.1",

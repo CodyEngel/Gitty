@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import dev.engel.gitty.R
+import dev.engel.gitty.ui.core.Bindable
 
 class OrganizationsPreviewAdapter : RecyclerView.Adapter<OrganizationsPreviewAdapter.OrganizationPreviewViewHolder>() {
 
@@ -32,12 +33,16 @@ class OrganizationsPreviewAdapter : RecyclerView.Adapter<OrganizationsPreviewAda
 
     override fun getItemCount(): Int = records.size
 
-    data class Record(val name: String, val avatarUrl: String)
+    data class Record(val name: String, val avatarUrl: String) : Bindable.Record
 
-    class OrganizationPreviewViewHolder(private val holderView: ImageView) : RecyclerView.ViewHolder(holderView) {
-        fun bind(record: Record) = with(holderView) {
-            contentDescription = record.name
-            load(record.avatarUrl)
+    class OrganizationPreviewViewHolder(
+        private val holderView: ImageView
+        ) : RecyclerView.ViewHolder(holderView), Bindable<Record> {
+        override fun bind(record: Record) {
+            with(holderView) {
+                contentDescription = record.name
+                load(record.avatarUrl)
+            }
         }
     }
 }

@@ -5,13 +5,13 @@ apply plugin: "kotlin-android-extensions"
 apply plugin: "com.apollographql.apollo"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "dev.engel.gitty"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -20,6 +20,10 @@ android {
         manifestPlaceholders = [
                 appAuthRedirectScheme: 'dev.engel.gitty'
         ]
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     buildTypes {
