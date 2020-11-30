@@ -4,21 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
+import dagger.hilt.android.AndroidEntryPoint
 import dev.engel.gitty.R
+import dev.engel.gitty.core.Skribe
 import dev.engel.gitty.databinding.FragmentProfileBinding
 import dev.engel.gitty.repository.ViewerCardRepository
-import dev.engel.gitty.ui.core.CoreFragment
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ProfileFragment : CoreFragment() {
+@AndroidEntryPoint
+class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewerCardRepository: ViewerCardRepository
+
+    @Inject
+    lateinit var skribe: Skribe
 
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding

@@ -7,10 +7,10 @@ buildscript {
             apollo          : "2.4.1",
             appAuth         : "0.7.1",
             appcompat       : '1.2.0',
-            coil            : '1.0.0',
+            coil            : '1.1.0',
             constraintLayout: '2.0.4',
             coroutines      : "1.3.6",
-            dagger          : '2.29.1',
+            dagger          : '2.30.1',
             detekt          : "1.9.0",
             junit5          : '5.7.0',
             kotlin          : '1.4.20',
@@ -19,11 +19,12 @@ buildscript {
             okHttp          : '4.9.0',
             recyclerView    : "1.1.0"
     ]
+    ext.versions.put("hilt", "${versions.dagger}-alpha") // workaround while hilt is still in alpha
 
     ext.api = [
             dagger: [
                     "com.google.dagger:dagger:${versions.dagger}",
-                    "com.google.dagger:dagger-android:${versions.dagger}"
+                    "com.google.dagger:hilt-android:${versions.hilt}"
             ]
     ]
 
@@ -60,7 +61,7 @@ buildscript {
     ext.procs = [
             dagger: [
                     "com.google.dagger:dagger-compiler:${versions.dagger}",
-                    "com.google.dagger:dagger-android-processor:${versions.dagger}"
+                    "com.google.dagger:hilt-android-compiler:${versions.hilt}"
             ]
     ]
 
@@ -68,6 +69,7 @@ buildscript {
             androidGradle: "com.android.tools.build:gradle:${versions.androidGradle}",
             apollo       : "com.apollographql.apollo:apollo-gradle-plugin:${versions.apollo}",
             detekt       : "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}",
+            hilt         : "com.google.dagger:hilt-android-gradle-plugin:${versions.hilt}",
             kotlin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     ]
 
@@ -80,6 +82,7 @@ buildscript {
         classpath classpaths.androidGradle
         classpath classpaths.apollo
         classpath classpaths.detekt
+        classpath classpaths.hilt
         classpath classpaths.kotlin
     }
 }

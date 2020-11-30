@@ -1,11 +1,7 @@
 package dev.engel.gitty.repository
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
-import dagger.Module
-import dagger.Provides
 import dev.engel.gitty.di.CoroutineIODispatcher
 import dev.engel.gitty.repository.AuthModule.Companion.PREF_AUTH_STATE
 import kotlinx.coroutines.CoroutineDispatcher
@@ -33,10 +29,6 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    fun blockingRetrieve(): Auth {
-        return runBlocking { retrieve() }
-    }
-
     suspend fun retrieve(): Auth = retrieve(AuthRetrieveQuery())
 
     override suspend fun retrieve(query: AuthRetrieveQuery): Auth {
@@ -58,31 +50,3 @@ sealed class Auth {
     data class LoggedIn(val accessToken: String) : Auth()
 }
 
-@Module
-class AuthModule {
-    @Provides
-    fun providesAuthState(
-        authServiceConfig: AuthorizationServiceConfiguration,
-        sharedPreferences: SharedPreferences
-    ): AuthState {
-        val authStateJson = sharedPreferences.getString(PREF_AUTH_STATE, null)
-        return authStateJson?.let { AuthState.jsonDeserialize(it) } ?: AuthState(authServiceConfig)
-    }
-
-    @Provides
-    fun providesAuthService(context: Context): AuthorizationService {
-        return AuthorizationService(context)
-    }
-
-    @Provides
-    fun providesAuthServiceConfig(): AuthorizationServiceConfiguration {
-        return AuthorizationServiceConfiguration(
-            Uri.parse("https://github.com/login/oauth/authorize"),  // authorization endpoint
-            Uri.parse("https://github.com/login/oauth/access_token") // token endpoint
-        )
-    }
-
-    companion object {
-        const val PREF_AUTH_STATE = "authStateJson"
-    }
-}

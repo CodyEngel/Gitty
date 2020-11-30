@@ -3,6 +3,9 @@ package dev.engel.gitty.repository
 import com.apollographql.apollo.ApolloClient
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.migration.DisableInstallInCheck
 import dev.engel.gitty.core.Skribe
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.channels.Channel
@@ -14,6 +17,7 @@ import net.openid.appauth.AuthorizationService
 import okhttp3.*
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     @Provides

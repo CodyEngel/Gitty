@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import dagger.hilt.android.AndroidEntryPoint
 import dev.engel.gitty.core.AppConstants.GITHUB_CLIENT_ID
 import dev.engel.gitty.core.AppConstants.GITHUB_CLIENT_SECRET
 import dev.engel.gitty.core.Skribe
-import dev.engel.gitty.di.AutoInject
 import dev.engel.gitty.repository.Auth
 import dev.engel.gitty.repository.AuthCreateQuery
 import dev.engel.gitty.repository.AuthRepository
@@ -17,7 +17,8 @@ import kotlinx.coroutines.launch
 import net.openid.appauth.*
 import javax.inject.Inject
 
-class AuthenticationActivity : AppCompatActivity(), AutoInject {
+@AndroidEntryPoint
+class AuthenticationActivity : AppCompatActivity() {
 
     @Inject
     lateinit var authRepository: AuthRepository
