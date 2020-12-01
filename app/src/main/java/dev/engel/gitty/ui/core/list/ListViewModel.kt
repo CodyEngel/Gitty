@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 /**
  * ListViewModel provides a way to represent a list of items in a consistent way.
  */
-interface ListViewModel<T> {
+interface ListViewModel<T : ViewModelRecord> {
 
     /**
      * @return the size of the items in the [ListViewModel]
@@ -23,4 +23,13 @@ interface ListViewModel<T> {
      * results.
      */
     fun registerDiffResult(onDiffResult: (diffResult: DiffUtil.DiffResult) -> Unit)
+}
+
+interface ViewModelRecord {
+    fun isSameAs(other: ViewModelRecord): Boolean {
+        return this == other
+    }
+    fun hasSameContentAs(other: ViewModelRecord): Boolean {
+        return this == other
+    }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -26,11 +27,13 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var skribe: Skribe
 
+    private val organizationsPreviewViewModel: OrganizationsPreviewViewModel by viewModels()
+
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding!!
 
-    private val organizationsPreviewAdapter by lazy { OrganizationsPreviewAdapter() }
+    private val organizationsPreviewAdapter by lazy { OrganizationsPreviewAdapter(organizationsPreviewViewModel) }
 
     private val repositoriesPreviewAdapter by lazy { RepositoriesPreviewAdapter() }
 
@@ -61,16 +64,6 @@ class ProfileFragment : Fragment() {
                 profileImageView.load(viewer.avatarUrl.toString()) {
                     transformations(CircleCropTransformation())
                 }
-
-                val organizationRecords = viewer.organizations.nodes?.mapNotNull { organization ->
-                    organization?.run {
-                        OrganizationsPreviewAdapter.Record(
-                            name = name!!,
-                            avatarUrl = avatarUrl.toString()
-                        )
-                    }
-                } ?: emptyList()
-                organizationsPreviewAdapter.updateRecords(organizationRecords)
 
                 val repositoryRecords = viewer.repositories.nodes?.mapNotNull { repository ->
                     repository?.run {

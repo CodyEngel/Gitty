@@ -7,15 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import dev.engel.gitty.R
 import dev.engel.gitty.ui.core.Bindable
+import dev.engel.gitty.ui.core.list.ListViewModel
 
-class OrganizationsPreviewAdapter : RecyclerView.Adapter<OrganizationsPreviewAdapter.OrganizationPreviewViewHolder>() {
+class OrganizationsPreviewAdapter(
+    private val listViewModel: ListViewModel<OrganizationPreviewRecord>
+) : RecyclerView.Adapter<OrganizationsPreviewAdapter.OrganizationPreviewViewHolder>() {
 
-    private val records: MutableList<Record> = mutableListOf()
-
-    fun updateRecords(records: List<Record>) {
-        this.records.clear()
-        this.records.addAll(records)
-        notifyDataSetChanged()
+    init {
+        listViewModel.registerDiffResult { diffResult ->
+            diffResult.dispatchUpdatesTo(this)
+        }
     }
 
     override fun onCreateViewHolder(
@@ -28,17 +29,15 @@ class OrganizationsPreviewAdapter : RecyclerView.Adapter<OrganizationsPreviewAda
     }
 
     override fun onBindViewHolder(holder: OrganizationPreviewViewHolder, position: Int) {
-        holder.bind(records[position])
+        holder.bind(listViewModel[position])
     }
 
-    override fun getItemCount(): Int = records.size
-
-    data class Record(val name: String, val avatarUrl: String) : Bindable.Record
+    override fun getItemCount(): Int = listViewModel.size
 
     class OrganizationPreviewViewHolder(
         private val holderView: ImageView
-        ) : RecyclerView.ViewHolder(holderView), Bindable<Record> {
-        override fun bind(record: Record) {
+        ) : RecyclerView.ViewHolder(holderView), Bindable<OrganizationPreviewRecord> {
+        override fun bind(record: OrganizationPreviewRecord) {
             with(holderView) {
                 contentDescription = record.name
                 load(record.avatarUrl)

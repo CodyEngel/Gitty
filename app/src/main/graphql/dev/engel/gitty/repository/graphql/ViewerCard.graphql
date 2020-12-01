@@ -16,6 +16,7 @@ query ViewerCard {
         }
         organizations(first: 15) {
             nodes {
+                id
                 name
                 avatarUrl(size: 256)
             }

@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import dev.engel.gitty.di.CoroutineIODispatcher
 import dev.engel.gitty.repository.AuthModule.Companion.PREF_AUTH_STATE
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import net.openid.appauth.*
 import javax.inject.Inject

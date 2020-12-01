@@ -8,11 +8,8 @@ import dev.engel.gitty.core.Skribe
 import dev.engel.gitty.di.CoroutineIODispatcher
 import dev.engel.gitty.repository.graphql.ViewerCardQuery
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @Reusable
 class ViewerCardRepository @Inject constructor(

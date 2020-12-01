@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dagger.hilt.migration.DisableInstallInCheck
 import dev.engel.gitty.core.Skribe
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.channels.Channel

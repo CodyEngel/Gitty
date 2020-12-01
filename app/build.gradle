@@ -54,6 +54,7 @@ dependencies {
     implementation deps.kotlin
     implementation deps.okHttp
 
+    kapt procs.androidX
     kapt procs.dagger
 
     testImplementation deps.junit5
