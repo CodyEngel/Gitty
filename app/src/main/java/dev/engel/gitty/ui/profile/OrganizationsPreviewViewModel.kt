@@ -4,7 +4,6 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import dev.engel.gitty.core.Skribe
 import dev.engel.gitty.repository.ViewerCardRepository
-import dev.engel.gitty.ui.core.Bindable
 import dev.engel.gitty.ui.core.list.MutableListViewModel
 import dev.engel.gitty.ui.core.list.ViewModelRecord
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ data class OrganizationPreviewRecord(
     val id: String,
     val name: String,
     val avatarUrl: String
-) : Bindable.Record, ViewModelRecord {
+) : ViewModelRecord {
     override fun isSameAs(other: ViewModelRecord): Boolean {
         return when (other) {
             is OrganizationPreviewRecord -> {

@@ -14,6 +14,7 @@ import dev.engel.gitty.R
 import dev.engel.gitty.core.Skribe
 import dev.engel.gitty.databinding.FragmentProfileBinding
 import dev.engel.gitty.repository.ViewerCardRepository
+import dev.engel.gitty.ui.core.list.AsyncLayoutManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,13 +30,15 @@ class ProfileFragment : Fragment() {
 
     private val organizationsPreviewViewModel: OrganizationsPreviewViewModel by viewModels()
 
+    private val repositoriesPreviewViewModel: RepositoriesPreviewViewModel by viewModels()
+
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding!!
 
     private val organizationsPreviewAdapter by lazy { OrganizationsPreviewAdapter(organizationsPreviewViewModel) }
 
-    private val repositoriesPreviewAdapter by lazy { RepositoriesPreviewAdapter() }
+    private val repositoriesPreviewAdapter by lazy { RepositoriesPreviewAdapter(repositoriesPreviewViewModel) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,10 +53,10 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             organizationsList.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                AsyncLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             organizationsList.adapter = organizationsPreviewAdapter
 
-            repositoriesList.layoutManager = LinearLayoutManager(requireContext())
+            repositoriesList.layoutManager = AsyncLayoutManager(requireContext())
             repositoriesList.adapter = repositoriesPreviewAdapter
 
             MainScope().launch {
@@ -64,16 +67,6 @@ class ProfileFragment : Fragment() {
                 profileImageView.load(viewer.avatarUrl.toString()) {
                     transformations(CircleCropTransformation())
                 }
-
-                val repositoryRecords = viewer.repositories.nodes?.mapNotNull { repository ->
-                    repository?.run {
-                        RepositoriesPreviewAdapter.Record(
-                            title = name,
-                            content = description ?: ""
-                        )
-                    }
-                } ?: emptyList()
-                repositoriesPreviewAdapter.updateRecords(repositoryRecords)
             }
         }
     }

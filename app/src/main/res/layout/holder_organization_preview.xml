@@ -3,5 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="32dp"
     android:layout_height="32dp"
-    tools:ignore="ContentDescription"
-    tools:viewBindingIgnore="true"/>
+    tools:ignore="ContentDescription"/>

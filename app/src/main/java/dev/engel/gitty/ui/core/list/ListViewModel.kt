@@ -1,6 +1,7 @@
 package dev.engel.gitty.ui.core.list
 
 import androidx.recyclerview.widget.DiffUtil
+import dev.engel.gitty.ui.core.Bindable
 
 /**
  * ListViewModel provides a way to represent a list of items in a consistent way.
@@ -25,7 +26,7 @@ interface ListViewModel<T : ViewModelRecord> {
     fun registerDiffResult(onDiffResult: (diffResult: DiffUtil.DiffResult) -> Unit)
 }
 
-interface ViewModelRecord {
+interface ViewModelRecord : Bindable.Record {
     fun isSameAs(other: ViewModelRecord): Boolean {
         return this == other
     }
